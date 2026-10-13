@@ -12,11 +12,11 @@ Restaurants are among the riskiest small businesses to open: in this very datase
 ## What the app does
 | Page | Question answered | Team member · method |
 |---|---|---|
-| **1 · Location Intelligence** | How much competition is there, and how popular could a new restaurant here become? | Member 1 · haversine BallTree features, Linear Regression / Random Forest / Gradient Boosting / **HistGradientBoosting** |
-| **2 · Customer Reviews** | What do customers of nearby competitors praise and complain about? | Member 2 · TF-IDF + **Logistic Regression** / Naive Bayes sentiment, **NMF** complaint topics |
-| **3 · Market Clusters** | What kind of market environment is this? | Member 3 · neighbourhood profiles, **K-Means** vs Agglomerative (Ward) vs Gaussian Mixture |
-| **4 · Financial Simulator** | Do the numbers work, and how risky are they? | Member 3 · break-even, scenarios, **Monte Carlo** (4,000 runs), sensitivity |
-| **🎮 Beat the AI** | Can your instincts beat the models? | Three games on real data: *Higher or Lower* (vs the Member 1 regression), *Complaint Detective* (vs the NMF topic model), *Pick the Spot* (vs the Member 3 risk scores), with points, streaks and badges |
+| **1 · Location Intelligence** | How much competition is there, and how popular could a new restaurant here become? | Seif · haversine BallTree features, Linear Regression / Random Forest / Gradient Boosting / **HistGradientBoosting** |
+| **2 · Customer Reviews** | What do customers of nearby competitors praise and complain about? | Mariem · TF-IDF + **Logistic Regression** / Naive Bayes sentiment, **NMF** complaint topics |
+| **3 · Market Clusters** | What kind of market environment is this? | Belal · neighbourhood profiles, **K-Means** vs Agglomerative (Ward) vs Gaussian Mixture |
+| **4 · Financial Simulator** | Do the numbers work, and how risky are they? | Belal · break-even, scenarios, **Monte Carlo** (4,000 runs), sensitivity |
+| **🎮 Beat the AI** | Can your instincts beat the models? | Three games on real data: *Higher or Lower* (vs Seif's regression model), *Complaint Detective* (vs the NMF topic model), *Pick the Spot* (vs Belal's risk scores), with points, streaks and badges |
 | **5 · Launch Report** | Go / caution / high risk — and why? | All · explainable percentile scores, rules, alternative locations, downloadable report, **comparison of saved locations** |
 
 ![Market environments](docs/images/m3_cluster_map.png)
@@ -24,12 +24,12 @@ Restaurants are among the riskiest small businesses to open: in this very datase
 ## Results
 | Component | Model selected | Key result (held-out data) | Baseline |
 |---|---|---|---|
-| Popularity regression (Member 1) | HistGradientBoosting, log target | **Test R² 0.61**, MAE 51.3 reviews | median baseline MAE 99.4 (−48%) |
-| Sentiment classification (Member 2) | TF-IDF (1–2 grams) + Logistic Regression (C = 10) | **Test macro F1 0.944**, accuracy 0.964 | majority class 0.796 |
-| Market clustering (Member 3) | StandardScaler + K-Means, k = 4 | silhouette 0.23 (best of 3 methods), bootstrap ARI 0.87 | Ward 0.17, GMM 0.17 |
+| Popularity regression (Seif) | HistGradientBoosting, log target | **Test R² 0.61**, MAE 51.3 reviews | median baseline MAE 99.4 (−48%) |
+| Sentiment classification (Mariem) | TF-IDF (1–2 grams) + Logistic Regression (C = 10) | **Test macro F1 0.944**, accuracy 0.964 | majority class 0.796 |
+| Market clustering (Belal) | StandardScaler + K-Means, k = 4 | silhouette 0.23 (best of 3 methods), bootstrap ARI 0.87 | Ward 0.17, GMM 0.17 |
 
 Highlights
-* **Leakage-safe evaluation.** Member 1 splits by ~1 km spatial blocks and Member 2 by business, so test restaurants were never seen in training. Leakage assertions (target perturbation, fold-local vocabularies, train-only imputation) all pass.
+* **Leakage-safe evaluation.** Seif splits by ~1 km spatial blocks and Mariem by business, so test restaurants were never seen in training. Leakage assertions (target perturbation, fold-local vocabularies, train-only imputation) all pass.
 * **Feature engineering beat model choice.** Adding Yelp attributes, opening hours, a business-age proxy and nearby check-in activity raised the regression from R² 0.06 (location only) to 0.61.
 * **Four market environments** emerge without coordinates as inputs: *Downtown hub* (high demand, intense competition, 56% still open), *Busy outer corridor* (strong demand, weak competitors: the best opportunity/risk balance), *Mixed neighbourhood market* and *Quiet residential*.
 * **The risk score is back-tested on real outcomes.** Among 2,803 restaurants and cafés that opened in 2012–2019, 27% closed in low-risk areas vs 45% in high-risk areas (AUC 0.60). High-*demand* areas close *more* often, so the verdict always weighs opportunity against risk.
@@ -53,11 +53,11 @@ BusinessLaunchAI/
 ├── run_app.bat                  double-click launcher for Windows
 ├── src/businesslaunch/          reusable, tested Python package
 │   ├── data.py                  streaming Yelp JSON / ZIP readers
-│   ├── location.py              Member 1 features for a hypothetical restaurant + model wrapper
-│   ├── competitor_analysis.py   Member 2 competitor review analysis
-│   ├── market.py                Member 3 neighbourhood profiles, concept gaps
-│   ├── finance.py               Member 3 simulator (projection, scenarios, Monte Carlo)
-│   └── recommend.py             Member 3 explainable recommendation
+│   ├── location.py              Seif's features for a hypothetical restaurant + model wrapper
+│   ├── competitor_analysis.py   Mariem's competitor review analysis
+│   ├── market.py                Belal's neighbourhood profiles, concept gaps
+│   ├── finance.py               Belal's simulator (projection, scenarios, Monte Carlo)
+│   └── recommend.py             Belal's explainable recommendation
 ├── notebooks/
 │   └── BusinessLaunchAI_ML_Pipeline.ipynb   the complete ML work in one notebook (Parts 1–3)
 ├── outputs/member1|member2|member3/   trained models, metrics, figures, CSVs used by the app
@@ -94,11 +94,11 @@ Open http://localhost:8501, choose an area (or type coordinates) in the sidebar 
 ## Methodology in brief
 **Data.** Philadelphia, PA businesses (14,570 after cleaning). The restaurant/café universe is 6,174 businesses (5,855 tagged `Restaurants` plus 319 cafés/coffee shops). There are 703,584 cleaned reviews and 1.29M check-ins, with the snapshot ending January 2022.
 
-**Member 1 — regression.** The target is cumulative `review_count`, a popularity proxy (log-transformed). Features include competitor counts within 0.5/1/2 km, open competitors, density, distance to City Hall, own rating and price, 13 service attributes, alcohol/noise/Wi-Fi/parking, opening hours, years since first check-in, nearby check-in activity and 20 category tags. The model is selected by 3-fold spatial CV on training blocks, then validation MAE. Each restaurant's own check-in count is excluded because it duplicates the target.
+**Seif — regression.** The target is cumulative `review_count`, a popularity proxy (log-transformed). Features include competitor counts within 0.5/1/2 km, open competitors, density, distance to City Hall, own rating and price, 13 service attributes, alcohol/noise/Wi-Fi/parking, opening hours, years since first check-in, nearby check-in activity and 20 category tags. The model is selected by 3-fold spatial CV on training blocks, then validation MAE. Each restaurant's own check-in count is excluded because it duplicates the target.
 
-**Member 2 — NLP.** Labels come from stars (1–2 negative, 4–5 positive; 3 excluded from training). Text is lowercased with negation preserved ("don't" → "do not"), then vectorised with TF-IDF (unigrams + bigrams). Models are tuned with GroupKFold by business and selected on validation macro F1. NMF on negative reviews produces the complaint topics, which are aggregated per business and per location.
+**Mariem — NLP.** Labels come from stars (1–2 negative, 4–5 positive; 3 excluded from training). Text is lowercased with negation preserved ("don't" → "do not"), then vectorised with TF-IDF (unigrams + bigrams). Models are tuned with GroupKFold by business and selected on validation macro F1. NMF on negative reviews produces the complaint topics, which are aggregated per business and per location.
 
-**Member 3 — clustering, finance, recommendation.** 611 grid areas (0.5 km cells) are each profiled with 13 features within 1 km: supply, survival, concept mix, price, rating, % negative reviews, demand, diversity and complaint mix. The pipeline is median-impute → StandardScaler → clustering, with k chosen by a pre-stated rule: k ≥ 4, bootstrap ARI ≥ 0.8, smallest cluster ≥ 5%, then the highest silhouette. Opportunity and risk scores are percentiles against all areas. The financial model is driven by user assumptions; data informs only the default ticket (local price level) and a bounded ±40% traffic adjustment (local demand percentile). A Monte Carlo simulation gives the probability of payback within 24 months.
+**Belal — clustering, finance, recommendation.** 611 grid areas (0.5 km cells) are each profiled with 13 features within 1 km: supply, survival, concept mix, price, rating, % negative reviews, demand, diversity and complaint mix. The pipeline is median-impute → StandardScaler → clustering, with k chosen by a pre-stated rule: k ≥ 4, bootstrap ARI ≥ 0.8, smallest cluster ≥ 5%, then the highest silhouette. Opportunity and risk scores are percentiles against all areas. The financial model is driven by user assumptions; data informs only the default ticket (local price level) and a bounded ±40% traffic adjustment (local demand percentile). A Monte Carlo simulation gives the probability of payback within 24 months.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the data flow between members.
 
@@ -120,9 +120,9 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the data flow between membe
 ## Team
 | Member | Responsibility |
 |---|---|
-| Member 1 | Location intelligence & regression (business + check-in data) |
-| Member 2 | NLP, sentiment classification & complaint topics (review data) |
-| Member 3 | Clustering, financial simulation, recommendation & app integration |
+| Seif | Location intelligence & regression (business + check-in data) |
+| Mariem | NLP, sentiment classification & complaint topics (review data) |
+| Belal | Clustering, financial simulation, recommendation & app integration |
 
 GitHub: [@BelalOsaKa](https://github.com/BelalOsaKa) · [@SeifTdec](https://github.com/SeifTdec) · [@ezzat2803-crypto](https://github.com/ezzat2803-crypto)
 
