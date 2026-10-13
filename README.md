@@ -124,4 +124,6 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the data flow between membe
 | Member 2 | NLP, sentiment classification & complaint topics (review data) |
 | Member 3 | Clustering, financial simulation, recommendation & app integration |
 
+GitHub: [@BelalOsaKa](https://github.com/BelalOsaKa) · [@SeifTdec](https://github.com/SeifTdec) · [@ezzat2803-crypto](https://github.com/ezzat2803-crypto)
+
 *Data: Yelp Open Dataset, used under the Yelp Dataset Terms of Use for academic purposes.*
