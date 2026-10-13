@@ -1,0 +1,9 @@
+check,passed
+Unique business IDs,True
+Disjoint train/validation/test spatial groups,True
+Target and neighbor review aggregates excluded from predictors,True
+All-target perturbation leaves predictor matrix unchanged,True
+Held-out rating perturbation leaves training predictors unchanged,True
+Imputer and scaler fitted only on training rows,True
+Category vocabulary learned from training or fold-training rows only,True
+Spatial CV folds have no overlapping geographic blocks,True

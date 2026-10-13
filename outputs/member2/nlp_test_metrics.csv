@@ -1,0 +1,2 @@
+model,test_reviews,test_businesses,accuracy,precision_macro,recall_macro,f1_macro,majority_class_accuracy
+Logistic Regression (tuned),19239,1128,0.9638754613025625,0.9510889956687285,0.9364618699878895,0.9435411004661359,0.7956754509070117

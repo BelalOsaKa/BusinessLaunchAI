@@ -1,0 +1,37 @@
+# BusinessLaunch AI theme (run the app from the project root so Streamlit finds this file).
+[theme]
+base = "light"
+primaryColor = "#128C87"
+backgroundColor = "#F6F9FA"
+secondaryBackgroundColor = "#EAF2F3"
+textColor = "#16324F"
+borderColor = "#D7E3E6"
+showWidgetBorder = true
+baseRadius = "0.7rem"
+buttonRadius = "0.6rem"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Plus Jakarta Sans:https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+headingFontWeights = [800, 700, 700, 600, 600, 600]
+metricValueFontWeight = 700
+linkColor = "#0F6F6B"
+chartCategoricalColors = ["#128C87", "#387CB4", "#D89B38", "#C2514A", "#7A5BA6", "#4E9F3D", "#16324F", "#E07B39"]
+chartSequentialColors = ["#E3F4F1", "#BFE5DF", "#94D2C9", "#66BCB2", "#3FA59B", "#128C87", "#0E7671", "#0B5F5B", "#16324F", "#0D2238"]
+dataframeHeaderBackgroundColor = "#EAF2F3"
+
+[theme.sidebar]
+backgroundColor = "#0F2A40"
+secondaryBackgroundColor = "#173A55"
+textColor = "#E8F1F4"
+borderColor = "#2A4D69"
+primaryColor = "#4FD1C5"
+linkColor = "#9FE7DF"
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = "stacktrace"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

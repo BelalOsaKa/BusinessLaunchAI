@@ -1,0 +1,62 @@
+feature,unit,definition,used_in_regression
+latitude,degrees,Restaurant latitude,True
+longitude,degrees,Restaurant longitude,True
+stars,1–5 stars,Own snapshot Yelp rating; unavailable for a true cold start,True
+is_open,0 / 1,Closed / open at dataset snapshot,True
+price_range,1–4,RestaurantsPriceRange2; missing values imputed from training,True
+category_count,tags,Number of distinct business category tags,True
+competitors_0p5km,restaurants,Other Philadelphia restaurants within 0.5 km,True
+competitors_1p0km,restaurants,Other Philadelphia restaurants within 1 km,True
+open_competitors_1km,restaurants,Other open Philadelphia restaurants within 1 km,True
+nearby_rating_mean_1km,stars,Mean rating of other catalog restaurants within 1 km,False
+competitors_2p0km,restaurants,Other Philadelphia restaurants within 2 km,True
+competitor_density_1km,restaurants/km²,Competitors within 1 km divided by π,True
+nearby_checkin_mean_0p5km,log check-ins,Mean log(1 + check-ins) of other restaurants within 0.5 km,True
+nearby_checkin_mean_1p0km,log check-ins,Mean log(1 + check-ins) of other restaurants within 1 km,True
+reference_neighbors_1km,restaurants,Eligible training-reference neighbors within 1 km,False
+nearby_review_mean_1km,cumulative reviews,Mean review count over eligible training-reference neighbors,False
+nearby_review_sum_1km,cumulative reviews,Sum of review counts over eligible training-reference neighbors,False
+distance_city_hall_km,km,Haversine distance to Philadelphia City Hall,True
+years_since_first_checkin,years,Snapshot date minus first check-in (Yelp-age proxy),True
+checkin_active_years,years,Last minus first check-in,True
+attribute_count,attributes,Number of Yelp attributes filled in,True
+attr_RestaurantsTakeOut,0 / 1,Yelp attribute RestaurantsTakeOut,True
+attr_RestaurantsDelivery,0 / 1,Yelp attribute RestaurantsDelivery,True
+attr_OutdoorSeating,0 / 1,Yelp attribute OutdoorSeating,True
+attr_RestaurantsReservations,0 / 1,Yelp attribute RestaurantsReservations,True
+attr_RestaurantsGoodForGroups,0 / 1,Yelp attribute RestaurantsGoodForGroups,True
+attr_GoodForKids,0 / 1,Yelp attribute GoodForKids,True
+attr_BusinessAcceptsCreditCards,0 / 1,Yelp attribute BusinessAcceptsCreditCards,True
+attr_HasTV,0 / 1,Yelp attribute HasTV,True
+attr_RestaurantsTableService,0 / 1,Yelp attribute RestaurantsTableService,True
+attr_Caters,0 / 1,Yelp attribute Caters,True
+attr_BikeParking,0 / 1,Yelp attribute BikeParking,True
+attr_WheelchairAccessible,0 / 1,Yelp attribute WheelchairAccessible,True
+attr_HappyHour,0 / 1,Yelp attribute HappyHour,True
+level_Alcohol,0–2,none / beer and wine / full bar,True
+level_NoiseLevel,0–3,quiet / average / loud / very loud,True
+level_WiFi,0–2,no / paid / free,True
+any_parking,0 / 1,Any BusinessParking option available,True
+days_open,days,Days with listed opening hours,True
+hours_per_week,hours,Total listed opening hours per week,True
+late_night_days,days,Days closing at 23:00 or later,True
+tag__Nightlife,0 / 1,Training-selected category-tag indicator,True
+tag__Bars,0 / 1,Training-selected category-tag indicator,True
+tag__Sandwiches,0 / 1,Training-selected category-tag indicator,True
+tag__Pizza,0 / 1,Training-selected category-tag indicator,True
+tag__American (New),0 / 1,Training-selected category-tag indicator,True
+tag__Breakfast & Brunch,0 / 1,Training-selected category-tag indicator,True
+tag__American (Traditional),0 / 1,Training-selected category-tag indicator,True
+tag__Coffee & Tea,0 / 1,Training-selected category-tag indicator,True
+tag__Chinese,0 / 1,Training-selected category-tag indicator,True
+tag__Italian,0 / 1,Training-selected category-tag indicator,True
+tag__Fast Food,0 / 1,Training-selected category-tag indicator,True
+tag__Burgers,0 / 1,Training-selected category-tag indicator,True
+tag__Seafood,0 / 1,Training-selected category-tag indicator,True
+tag__Cafes,0 / 1,Training-selected category-tag indicator,True
+tag__Mexican,0 / 1,Training-selected category-tag indicator,True
+tag__Event Planning & Services,0 / 1,Training-selected category-tag indicator,True
+tag__Salad,0 / 1,Training-selected category-tag indicator,True
+tag__Delis,0 / 1,Training-selected category-tag indicator,True
+tag__Specialty Food,0 / 1,Training-selected category-tag indicator,True
+tag__Bakeries,0 / 1,Training-selected category-tag indicator,True

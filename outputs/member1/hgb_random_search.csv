@@ -1,0 +1,24 @@
+candidate,loss,CV_MAE,learning_rate,max_iter,max_leaf_nodes,min_samples_leaf,l2_regularization,max_features
+random 3,"log target, squared error",60.96898880506979,0.05,800,31,80,1.0,0.5
+random 11,"log target, squared error",61.237729899176124,0.08,500,15,80,1.0,0.5
+random 13,"log target, squared error",61.291063496676344,0.03,200,31,40,0.0,0.5
+random 16,"log target, squared error",61.34819976350979,0.03,800,31,40,5.0,0.5
+random 17,"log target, squared error",61.529119987935154,0.02,500,15,20,5.0,0.5
+random 18,"log target, squared error",61.689988610719155,0.08,200,31,80,5.0,0.8
+random 5,"log target, squared error",61.78055133684552,0.08,500,15,80,1.0,0.8
+random 8,"log target, squared error",61.79684057663717,0.05,300,7,80,1.0,1.0
+random 19,"log target, squared error",61.80960160782684,0.03,500,7,80,1.0,0.8
+random 1,"log target, squared error",61.92803871642633,0.02,800,15,40,1.0,1.0
+random 9,"log target, squared error",61.97292040628508,0.05,800,31,20,1.0,0.8
+selected (grid),"log target, squared error",61.98812095121776,0.04,400,15,30,1.0,
+random 12,"log target, squared error",62.0787776598338,0.08,300,7,40,5.0,0.5
+random 14,"log target, squared error",62.22619508049895,0.05,500,31,40,0.0,1.0
+random 20,"log target, squared error",62.27314575923978,0.05,500,7,20,0.0,0.5
+random 15,"log target, squared error",62.29723595007325,0.05,500,7,20,5.0,1.0
+random 7,"log target, squared error",62.31149308564097,0.08,800,7,40,0.0,1.0
+random 4,"log target, squared error",62.33501266437057,0.08,300,15,40,0.0,1.0
+random 10,"log target, squared error",62.495226991455354,0.03,200,15,20,5.0,1.0
+best random,Poisson,63.06802021807717,0.05,800,31,80,1.0,0.5
+random 2,"log target, squared error",63.11840488459979,0.02,500,7,20,1.0,1.0
+selected (grid),Poisson,64.06077115853618,0.04,400,15,30,1.0,
+random 6,"log target, squared error",64.32174174065018,0.03,200,7,40,5.0,0.5

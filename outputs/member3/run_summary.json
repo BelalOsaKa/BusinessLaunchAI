@@ -1,0 +1,19 @@
+{
+  "businesses": 6174,
+  "neighbourhood_profiles": 611,
+  "k": 4,
+  "silhouette": 0.23178025507481562,
+  "davies_bouldin": 1.5996688552777867,
+  "bootstrap_ARI": 0.8670490527785987,
+  "cluster_names": {
+    "0": "Mixed neighbourhood market",
+    "1": "Downtown hub: high demand, intense competition",
+    "2": "Quiet residential: low competition, low activity",
+    "3": "Busy outer corridor: strong demand, weak competitors"
+  },
+  "example_verdicts": {
+    "Center City (City Hall)": "Proceed with caution",
+    "East Passyunk": "Proceed with caution",
+    "Northeast Philadelphia (Frankford Ave)": "Promising"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "Demo · Center City restaurant": {"lat": 39.9526, "lon": -75.1636, "radius": 1.0, "concept": "Restaurant", "saved_at": "2026-10-13 18:00"},
+  "Demo · East Passyunk restaurant": {"lat": 39.929, "lon": -75.1652, "radius": 1.0, "concept": "Restaurant", "saved_at": "2026-10-13 18:00"},
+  "Demo · Northeast café": {"lat": 40.045, "lon": -75.06, "radius": 1.0, "concept": "Café", "saved_at": "2026-10-13 18:00"}
+}

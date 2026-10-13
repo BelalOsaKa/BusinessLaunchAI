@@ -1,0 +1,39 @@
+{
+  "excluded_regression_features": [
+    "nearby_review_mean_1km",
+    "nearby_review_sum_1km",
+    "reference_neighbors_1km",
+    "nearby_rating_mean_1km"
+  ],
+  "selected_parameters": {
+    "Median baseline": {
+      "strategy": "median"
+    },
+    "Linear Regression": {},
+    "Random Forest": {
+      "n_estimators": 300,
+      "max_depth": 12,
+      "min_samples_leaf": 10,
+      "max_features": 0.5
+    },
+    "Gradient Boosting": {
+      "n_estimators": 150,
+      "learning_rate": 0.03,
+      "max_depth": 2,
+      "min_samples_leaf": 50
+    },
+    "HistGradientBoosting": {
+      "learning_rate": 0.04,
+      "max_iter": 400,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 30,
+      "l2_regularization": 1.0
+    }
+  },
+  "cv_folds": 3,
+  "selection_rule": "train-block CV MAE per family, then validation MAE",
+  "test_status": "reused original test set; descriptive re-evaluation only",
+  "catalog_assumption": "full restaurant geometry and check-ins known; no catalog review targets used in model features",
+  "own_checkin_count_used": false,
+  "leakage_checks_passed": true
+}
