@@ -71,7 +71,7 @@ BusinessLaunchAI/
 Requires Python 3.11.
 
 ```bash
-git clone https://github.com/<your-username>/BusinessLaunchAI.git
+git clone https://github.com/BelalOsaKa/BusinessLaunchAI.git
 cd BusinessLaunchAI
 python -m venv .venv
 .venv\Scripts\activate            # Windows  (macOS/Linux: source .venv/bin/activate)
