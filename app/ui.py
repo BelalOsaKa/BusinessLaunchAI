@@ -12,7 +12,11 @@ CSS = """
 <style>
 .block-container {padding-top: 2.2rem; padding-bottom: 3rem; max-width: 1280px;}
 [data-testid="stMetric"] {background: #FFFFFF;}
-[data-testid="stMetricLabel"] p {font-size: .82rem; color: #5B6B7F; font-weight: 600; text-transform: uppercase; letter-spacing: .03em;}
+/* responsive metric cards: values shrink and labels wrap instead of being cut off on smaller screens */
+[data-testid="stMetricValue"], [data-testid="stMetricValue"] > div {font-size: clamp(1.25rem, 2.05vw, 2.25rem) !important; overflow: visible !important; text-overflow: clip !important; white-space: nowrap;}
+[data-testid="stMetricLabel"], [data-testid="stMetricLabel"] div, [data-testid="stMetricLabel"] p {white-space: normal !important; overflow: visible !important; text-overflow: clip !important; line-height: 1.25;}
+@media (max-width: 1100px) {.bl-hero h1 {font-size: 1.6rem;} .bl-hero {padding: 1.2rem 1.3rem;}}
+[data-testid="stMetricLabel"] p {font-size: clamp(.66rem, .85vw, .82rem); color: #5B6B7F; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; word-break: keep-all; overflow-wrap: normal; hyphens: none;}
 [data-testid="stSidebarNav"] {padding-top: .5rem;}
 .bl-hero {background: linear-gradient(120deg, #0F2A40 0%, #16324F 45%, #128C87 100%); color: #fff; border-radius: 1.1rem;
           padding: 1.6rem 1.9rem 1.4rem; margin-bottom: 1.1rem; position: relative; overflow: hidden;}

@@ -75,7 +75,8 @@ git clone https://github.com/BelalOsaKa/BusinessLaunchAI.git
 cd BusinessLaunchAI
 python -m venv .venv
 .venv\Scripts\activate            # Windows  (macOS/Linux: source .venv/bin/activate)
-pip install -r requirements.txt
+pip install -r requirements.txt        # the app (exact, tested versions)
+pip install -r requirements-dev.txt    # + notebook and tests
 ```
 
 ### Run the app (no dataset download needed)
@@ -86,10 +87,18 @@ streamlit run app/Home.py
 On Windows you can also double-click `run_app.bat`.
 Open http://localhost:8501, choose an area (or type coordinates) in the sidebar and go through the five pages. Use **💾 Save location** in the sidebar and **Save these assumptions** on the Financial Simulator page; the Launch Report then uses your numbers and compares all saved locations. Three demo locations are pre-saved in `app/saved_locations.json`. After changing any code, stop and restart the app (Streamlit keeps shared modules in memory).
 
+### Deploy on Streamlit Community Cloud
+1. Sign in at [share.streamlit.io](https://share.streamlit.io) with GitHub and choose **Create app → Deploy a public app from GitHub**.
+2. Repository `BelalOsaKa/BusinessLaunchAI`, branch `main`, main file path **`app/Home.py`**.
+3. **Advanced settings → Python version: 3.11** (the saved models were built with Python 3.11 and scikit-learn 1.9.1).
+4. Deploy. The first start installs `requirements.txt` and takes a few minutes; later visits load in seconds.
+
+The theme is read from `.streamlit/config.toml` at the repository root, the models from `outputs/`, so no dataset or secrets are needed. On the hosted app, saved locations are kept per visitor for the browser session; when you run the app locally they are also written to `app/saved_locations.json`.
+
 ### Reproduce the models
 1. Download the Yelp Open Dataset and place the files in `data/` (see [data/README.md](data/README.md)).
 2. Open `notebooks/BusinessLaunchAI_ML_Pipeline.ipynb` and *Run All*: Part 1 (≈5 min) → Part 2 (needs the 5 GB review file, ≈20–40 min; skip it if you don't have the file, Part 3 reads its saved results) → Part 3 (≈3 min). Each part writes to `outputs/memberN/`.
-3. Run the tests: `python -m pytest tests` (or `python tests/test_core.py` and `python tests/test_app_pages.py`).
+3. Run the tests (after `pip install -r requirements-dev.txt`): `python -m pytest tests` (or `python tests/test_core.py` and `python tests/test_app_pages.py`).
 
 ## Methodology in brief
 **Data.** Philadelphia, PA businesses (14,570 after cleaning). The restaurant/café universe is 6,174 businesses (5,855 tagged `Restaurants` plus 319 cafés/coffee shops). There are 703,584 cleaned reviews and 1.29M check-ins, with the snapshot ending January 2022.
