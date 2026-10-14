@@ -1,5 +1,6 @@
 """Shared loaders, location picker and helpers for every page of the BusinessLaunch AI app."""
 import json
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -102,16 +103,49 @@ SAVED_FILE = Path(__file__).with_name('saved_locations.json')
 SAVED_PREFIX = '★ '
 
 
-def load_saved():
-    """Saved locations {name: {lat, lon, radius, concept, saved_at, assumptions?}} kept in app/saved_locations.json."""
+def _read_saved_file():
     try:
         return json.loads(SAVED_FILE.read_text(encoding='utf-8'))
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
 
+def persist_to_file():
+    """Write saved locations to disk only when the app runs on this computer.
+
+    On a hosted deployment (Streamlit Community Cloud) one server is shared by every visitor and its disk is
+    reset on each restart, so there saved locations live in the visitor's own session instead. Override with
+    the environment variable BUSINESSLAUNCH_PERSIST=1 / 0.
+    """
+    forced = os.environ.get('BUSINESSLAUNCH_PERSIST')
+    if forced in ('0', '1'):
+        return forced == '1'
+    try:
+        host = st.context.headers.get('Host', '') or ''
+    except Exception:  # no browser request (tests, bare mode)
+        host = ''
+    return host == '' or host.split(':')[0] in ('localhost', '127.0.0.1', '[::1]')
+
+
+def load_saved():
+    """Saved locations {name: {lat, lon, radius, concept, saved_at, assumptions?}}.
+
+    Seeded from app/saved_locations.json (the three demo locations ship with the repo); kept per visitor in
+    st.session_state, and also written back to the file when running locally.
+    """
+    state = st.session_state
+    if persist_to_file():
+        return _read_saved_file()
+    if 'saved_locations' not in state:
+        state['saved_locations'] = _read_saved_file()
+    return dict(state['saved_locations'])
+
+
 def write_saved(saved):
-    SAVED_FILE.write_text(json.dumps(saved, indent=2), encoding='utf-8')
+    if persist_to_file():
+        SAVED_FILE.write_text(json.dumps(saved, indent=2), encoding='utf-8')
+    else:
+        st.session_state['saved_locations'] = dict(saved)
 
 
 def current_saved_name():
@@ -183,7 +217,8 @@ def location_picker():
                     save_location(new_name.strip())
                     state['preset'] = SAVED_PREFIX + new_name.strip()
                     st.rerun()
-        st.caption('Saved locations appear at the top of the Area list and can be compared on the Launch Report page.')
+        st.caption('Saved locations appear at the top of the Area list and can be compared on the Launch Report page.'
+                   + ('' if persist_to_file() else ' They are kept for this browser session.'))
     return state['lat'], state['lon'], state['radius'], state['concept']
 
 
